@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:pingpong_counter_flutter/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      home: SplashScreen(),
     );
   }
 }
@@ -82,30 +83,34 @@ class _HomePageState extends State<HomePage> {
                     ),
                     Align(
                       alignment: Alignment.centerLeft,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          ElevatedButton(
-                            onPressed: () => increment('red'),
-                            style: const ButtonStyle(
-                              backgroundColor: WidgetStatePropertyAll<Color>(Colors.transparent),
+                      child: Container(
+                        height: 150,
+                        width: 70,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            border: Border.all(width: 2, color: Colors.white)),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            TransparentButton(
+                              onPressed: () => increment('red'),
+                              child: const Icon(
+                                Icons.keyboard_arrow_up,
+                                size: 50,
+                                color: Colors.white,
+                              ),
                             ),
-                            child: const Icon(
-                              Icons.keyboard_arrow_up,
-                              color: Colors.white,
+                            const SizedBox(height: 20),
+                            TransparentButton(
+                              onPressed: () => decrement('red'),
+                              child: const Icon(
+                                Icons.keyboard_arrow_down,
+                                size: 50,
+                                color: Colors.white,
+                              ),
                             ),
-                          ),
-                          ElevatedButton(
-                            onPressed: () => decrement('red'),
-                            style: const ButtonStyle(
-                              backgroundColor: WidgetStatePropertyAll<Color>(Colors.transparent),
-                            ),
-                            child: const Icon(
-                              Icons.keyboard_arrow_down,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ],
@@ -132,31 +137,34 @@ class _HomePageState extends State<HomePage> {
                     ),
                     Align(
                       alignment: Alignment.centerRight,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-
-                          ElevatedButton(
-                            onPressed: () => increment('blue'),
-                            style: const ButtonStyle(
-                              backgroundColor: WidgetStatePropertyAll<Color>(Colors.transparent),
+                      child: Container(
+                        height: 150,
+                        width: 70,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            border: Border.all(width: 2, color: Colors.white)),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            TransparentButton(
+                              onPressed: () => increment('blue'),
+                              child: const Icon(
+                                Icons.keyboard_arrow_up,
+                                size: 50,
+                                color: Colors.white,
+                              ),
                             ),
-                            child: const Icon(
-                              Icons.keyboard_arrow_up,
-                              color: Colors.white,
+                            const SizedBox(height: 20),
+                            TransparentButton(
+                              onPressed: () => decrement('blue'),
+                              child: const Icon(
+                                Icons.keyboard_arrow_down,
+                                size: 50,
+                                color: Colors.white,
+                              ),
                             ),
-                          ),
-                          ElevatedButton(
-                            onPressed: () => decrement('blue'),
-                            style: const ButtonStyle(
-                              backgroundColor: WidgetStatePropertyAll<Color>(Colors.transparent),
-                            ),
-                            child: const Icon(
-                              Icons.keyboard_arrow_down,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ],
@@ -175,12 +183,35 @@ class _HomePageState extends State<HomePage> {
                   width: 250,
                   decoration: const BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage('assets/logotipo.png'),
-                      )),
+                    image: AssetImage('assets/logotipo.png'),
+                  )),
                 ),
               )),
         ],
       ),
+    );
+  }
+}
+
+class TransparentButton extends StatelessWidget {
+  final VoidCallback onPressed;
+  final Widget child;
+
+  const TransparentButton({
+    Key? key,
+    required this.onPressed,
+    required this.child,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: onPressed,
+      style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.transparent,
+          shadowColor: Colors.transparent,
+          padding: EdgeInsets.zero),
+      child: child,
     );
   }
 }
